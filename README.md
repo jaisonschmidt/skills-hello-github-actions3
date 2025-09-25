@@ -6,34 +6,27 @@ _Criar e executar um fluxo de trabalho do GitHub Actions._
 
 </header>
 
-## Passo 1: Criar um arquivo de fluxo de trabalho
+## Passo 2: Adicionar um job ao seu arquivo de fluxo de trabalho
 
-_Bem-vindos ao "Olá GitHub Actions"! :wave:_
+_Bom trabalho! :tada: Você adicionou um arquivo de fluxo de trabalho!_
 
-**O que é o _GitHub Actions_?**: O GitHub Actions é uma maneira flexível de automatizar quase todos os aspectos do fluxo de trabalho de software da sua equipe. Você pode automatizar testes, fazer deploy contínuo, revisar código, gerenciar issues e pull requests, e muito mais. A melhor parte é que esses fluxos de trabalho são armazenados como código em seu repositório e facilmente compartilhados e reutilizados entre equipes. Para saber mais, confira estes recursos:
+Aqui está o que significam as entradas no arquivo `welcome.yml`, na branch `welcome-workflow`:
 
-- A página de recursos do GitHub Actions, veja [GitHub Actions](https://github.com/features/actions).
-- A documentação do usuário "GitHub Actions", veja [GitHub Actions](https://docs.github.com/pt/actions).
+- `name: Post welcome comment` dá um nome ao seu fluxo de trabalho. Este nome aparecerá na aba Actions do seu repositório.
+- `on: pull_request: types: [opened]` indica que seu fluxo de trabalho será executado sempre que alguém abrir um pull request em seu repositório.
+- `permissions` atribui ao fluxo de trabalho permissões para operar no repositório
+- `pull-requests: write` dá ao fluxo de trabalho permissão para escrever em pull requests. Isso é necessário para criar o comentário de boas-vindas.
 
-**O que é um _fluxo de trabalho_?**: Um fluxo de trabalho é um processo automatizado configurável que executará um ou mais jobs. Os fluxos de trabalho são definidos em arquivos especiais no diretório `.github/workflows` e são executados com base no evento escolhido. Para este exercício, usaremos um evento `pull_request`.
+Em seguida, precisamos especificar jobs para executar.
 
-- Para ler mais sobre fluxos de trabalho, jobs e eventos, veja "[Entendendo o GitHub Actions](https://docs.github.com/pt/actions/learn-github-actions/understanding-github-actions)".
-- Se você quiser saber mais sobre o evento `pull_request` antes de usá-lo, veja "[pull_request](https://docs.github.com/pt/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#pull_request)".
+**O que é um _job_?**: Um job é um conjunto de etapas em um fluxo de trabalho que são executadas no mesmo runner (um runner é um servidor que executa seus fluxos de trabalho quando acionado). Os fluxos de trabalho têm jobs, e os jobs têm etapas. As etapas são executadas em ordem e são dependentes umas das outras. Você adicionará etapas ao seu fluxo de trabalho mais tarde no curso. Para ler mais sobre jobs, veja "[Jobs](https://docs.github.com/pt/actions/learn-github-actions/understanding-github-actions#jobs)".
 
-Para começar, executamos um fluxo de trabalho do Actions em seu novo repositório que, entre outras coisas, criou uma branch para você trabalhar, chamada `welcome-workflow`.
+Na atividade a seguir, você adicionará um job "build" ao seu fluxo de trabalho. Você especificará `ubuntu-latest` como o runner de job mais rápido e barato disponível. Se você quiser ler mais sobre por que usaremos esse runner, veja a explicação do código para a linha `runs-on: ubuntu-latest` no artigo "[Entendendo o arquivo de fluxo de trabalho](https://docs.github.com/pt/actions/learn-github-actions/understanding-github-actions#understanding-the-workflow-file)".
 
-### :keyboard: Atividade: Criar um arquivo de fluxo de trabalho
+### :keyboard: Atividade: Adicionar um job ao seu arquivo de fluxo de trabalho
 
-1. Abra uma nova aba do navegador e navegue para este mesmo repositório. Em seguida, trabalhe nas etapas em sua segunda aba enquanto lê as instruções nesta aba.
-1. Crie um pull request. Isso conterá todas as alterações que você fará ao longo desta parte do curso.
-
-   Clique na aba **Pull Requests**, clique em **New pull request**, defina `base: main` e `compare:welcome-workflow`, clique em **Create pull request** e depois clique em **Create pull request** novamente.
-
-1. Navegue para a aba **Code**.
-1. No dropdown da branch **main**, clique na branch **welcome-workflow**.
-1. Navegue para a pasta `.github/workflows/`, então selecione **Add file** e clique em **Create new file**.
-1. No campo **Name your file**, digite `welcome.yml`.
-1. Adicione o seguinte conteúdo ao arquivo `welcome.yml`:
+1. Em uma aba separada do navegador, certifique-se de estar na branch `welcome-workflow` e abra seu arquivo `.github/workflows/welcome.yml`.
+1. Edite o arquivo e atualize seu conteúdo para:
 
    ```yaml copy
    name: Post welcome comment
@@ -42,11 +35,15 @@ Para começar, executamos um fluxo de trabalho do Actions em seu novo repositór
        types: [opened]
    permissions:
      pull-requests: write
+   jobs:
+     build:
+       name: Post welcome comment
+       runs-on: ubuntu-latest
    ```
 
-1. Para confirmar suas alterações, clique em **Commit changes**.
-1. Digite uma mensagem de commit, selecione **Commit directly to the welcome-workflow branch** e clique em **Commit changes**.
-1. Aguarde cerca de 20 segundos e atualize esta página (a que você está seguindo as instruções). Um fluxo de trabalho separado do Actions no repositório (não o fluxo de trabalho que você criou) será executado e automaticamente substituirá o conteúdo deste arquivo README pelas instruções para o próximo passo.
+1. Clique em **Commit changes** no canto superior direito do editor de fluxo de trabalho.
+1. Digite uma mensagem de commit e confirme suas alterações diretamente na branch `welcome-workflow`.
+1. Aguarde cerca de 20 segundos e atualize esta página (a que você está seguindo as instruções). Outro fluxo de trabalho será executado e substituirá o conteúdo deste arquivo README pelas instruções para o próximo passo.
 
 <footer>
 
