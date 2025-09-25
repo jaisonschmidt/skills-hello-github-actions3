@@ -6,24 +6,27 @@ _Criar e executar um fluxo de trabalho do GitHub Actions._
 
 </header>
 
-## Passo 5: Acionar o fluxo de trabalho
+## Finalizar
 
-_Agora você adicionou um fluxo de trabalho totalmente funcional ao seu repositório! :smile:_
+_Parabéns amigo, você completou este curso!_
 
-O script shell no fluxo de trabalho será executado sempre que um novo pull request for aberto.
+<img src=https://octodex.github.com/images/jetpacktocat.png alt="Mona, a Octocat usando um jetpack e sorrindo." width=300 align=right>
 
-**Vendo sua _action_ em ação**: O status de cada execução de fluxo de trabalho que é acionada é mostrado no pull request antes de ser mesclado: procure por **All checks have passed** quando você experimentar os passos abaixo. Você também pode ver uma lista de todos os fluxos de trabalho que estão executando, ou que terminaram de executar, na aba **Actions** do seu repositório. De lá, você pode clicar em cada execução de fluxo de trabalho para ver mais detalhes e acessar arquivos de log.
+Aqui está um resumo de todas as tarefas que você realizou em seu repositório:
 
-![Uma captura de tela da aba Actions mostrando uma lista de execuções de fluxo de trabalho.](https://user-images.githubusercontent.com/16547949/62388049-4e64e600-b52a-11e9-8bf5-db0c5452360f.png)
+- Você criou seu primeiro arquivo de fluxo de trabalho do GitHub Actions.
+- Você aprendeu onde fazer seu arquivo de fluxo de trabalho.
+- Você definiu um gatilho de evento, um job e uma etapa para seu fluxo de trabalho.
+- Você está pronto para automatizar qualquer coisa que possa sonhar.
 
-### :keyboard: Atividade: Acionar o fluxo de trabalho
+### O que vem a seguir?
 
-1. Crie uma nova branch chamada `test-workflow`.
-1. Faça uma alteração, como adicionar um emoji ao seu arquivo README.md, e confirme a alteração diretamente em sua nova branch.
-1. Na aba **Pull requests**, crie um pull request que fará merge de `test-workflow` em `main`.
-1. Observe o fluxo de trabalho sendo executado na seção de verificações do pull request.
-1. Note o comentário que o fluxo de trabalho adiciona ao pull request.
-1. Aguarde cerca de 20 segundos e atualize esta página (a que você está seguindo as instruções). Outro fluxo de trabalho será executado e substituirá o conteúdo deste arquivo README pelas instruções para o próximo passo.
+- Aprenda mais sobre GitHub Actions lendo "[Aprenda GitHub Actions](https://docs.github.com/pt/actions/learn-github-actions)"
+- Use actions criadas por outros em [awesome-actions](https://github.com/sdras/awesome-actions)
+- Gostaríamos de ouvir o que você achou deste curso [em nosso fórum de discussão](https://github.com/orgs/skills/discussions/categories/hello-github-actions)
+- [Faça outro curso sobre GitHub Actions](https://skills.github.com/#automate-workflows-with-github-actions)
+- Aprenda mais sobre GitHub lendo a documentação "[Começar](https://docs.github.com/pt/get-started)"
+- Para encontrar projetos para contribuir, confira o [GitHub Explore](https://github.com/explore)
 
 <footer>
 
