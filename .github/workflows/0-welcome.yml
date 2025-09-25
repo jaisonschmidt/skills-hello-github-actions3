@@ -1,0 +1,91 @@
+name: Passo 0, Bem-vindos
+
+# Esta etapa é acionada após o aluno criar um novo repositório a partir do template.
+# Este fluxo de trabalho atualiza do passo 0 para o passo 1.
+
+# Isso será executado toda vez que criarmos um commit para `main`.
+# Referência: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+# Reference: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
+permissions:
+  # Need `contents: read` to checkout the repository.
+  # Need `contents: write` to update the step metadata.
+  contents: write
+
+jobs:
+  # Obter o passo atual para executar apenas o job principal quando o aluno estiver no mesmo passo.
+  get_current_step:
+    name: Verificar número do passo atual
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - id: get_step
+        run: |
+          echo "current_step=$(cat ./.github/steps/-step.txt)" >> $GITHUB_OUTPUT
+    outputs:
+      current_step: ${{ steps.get_step.outputs.current_step }}
+
+  on_start:
+    name: Ao iniciar
+    needs: get_current_step
+
+    # We will only run this action when:
+    # 1. This repository isn't the template repository.
+    # 2. The step is currently 0.
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/contexts
+    # Reference: https://docs.github.com/en/actions/learn-github-actions/expressions
+    if: >-
+      ${{ !github.event.repository.is_template
+          && needs.get_current_step.outputs.current_step == 0 }}
+
+    # We'll run Ubuntu for performance instead of Mac or Windows.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Vamos precisar fazer checkout do repositório para que possamos editar o README.
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Let's get all the branches.
+
+      # Criar uma branch, arquivo e commit para o aluno.
+      - name: Preparar uma branch e arquivo
+        run: |
+          echo "Make sure we are on step 0"
+          if [ "$(cat .github/steps/-step.txt)" != 0 ]
+          then
+            echo "Current step is not 0"
+            exit 0
+          fi
+
+          echo "Make a branch"
+          BRANCH=welcome-workflow
+          git checkout -b $BRANCH
+
+          echo "Make a commit"
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git commit --allow-empty --message="Create an empty commit"
+
+          echo "Push"
+          git push --set-upstream origin $BRANCH
+
+          echo "Restore main"
+          git checkout main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # No README.md, trocar passo 0 pelo passo 1.
+      - name: Atualizar para o passo 1
+        uses: skills/action-update-step@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          from_step: 0
+          to_step: 1
+          branch_name: welcome-workflow
